@@ -42,7 +42,7 @@ export function HeroSearch() {
           />
           <button
             type="submit"
-            className="bg-orange-500 px-4 py-2 rounded-r-full hover:bg-orange-600 transition-colors"
+            className="bg-orange-500 px-4 py-2 rounded-r-full hover:bg-orange-600 transition-colors cursor-pointer"
           >
             🔍
           </button>
