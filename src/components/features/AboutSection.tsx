@@ -27,7 +27,7 @@ export function AboutSection() {
 
         <div className="w-full flex justify-center">
           <iframe 
-            className="w-full max-w-xl aspect-video rounded-2xl shadow-xl hover:scale-105 transition-transform duration-300" 
+            className="w-full max-w-xl aspect-video rounded-2xl shadow-xl transition-transform duration-300" 
             src="https://www.youtube.com/embed/-PMnAA-yQjc" 
             title="YouTube video player" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
