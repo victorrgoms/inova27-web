@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export function Footer() {
   return (
-    <footer className="bg-purple-900 text-white py-6 mt-12">
+    <footer className="bg-purple-900 text-white py-6">
       {/* seção esquerda */}
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm">
         
