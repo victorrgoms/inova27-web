@@ -3,13 +3,13 @@
 import { useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 
-// importa os jsons da pasta de tecnologias
+// import dos jsons
 import desenhos from '@/data/tecnologias/desenhos-industriais.json';
 import invencao from '@/data/tecnologias/patentes-invencao.json';
 import utilidade from '@/data/tecnologias/patentes-utilidade.json';
 import programas from '@/data/tecnologias/programas-computadores.json';
 
-// array fixo para o filtro de tipos (baseado na origem dos arquivos)
+// array fixo
 const tiposDisponiveis = [
   "Desenho Industrial",
   "Patente de Invenção",
@@ -17,14 +17,13 @@ const tiposDisponiveis = [
   "Programa de Computador"
 ];
 
-// reutilizamos a mesma função utilitária para limpar textos
 const formatarTexto = (texto?: string) => {
   if (!texto || texto === "-") return "Não informada";
   const limpo = String(texto).trim().replace(/\.$/, '');
   return limpo.charAt(0).toUpperCase() + limpo.slice(1);
 };
 
-// junta tudo e injeta o tipo correto de acordo com o arquivo JSON de origem
+
 const tecnologiasData = [
   ...desenhos.map(item => ({ ...item, tipoTecnologia: "Desenho Industrial" })),
   ...invencao.map(item => ({ ...item, tipoTecnologia: "Patente de Invenção" })),
@@ -32,7 +31,7 @@ const tecnologiasData = [
   ...programas.map(item => ({ ...item, tipoTecnologia: "Programa de Computador" }))
 ].map((item, index) => ({
   ...item,
-  // mantém a proteção contra chaves duplicadas
+  // proteção contra chaves duplicadas
   id: item.id ? `${item.id}-${index}` : `tec-gerada-${index}`,
   instituicaoNorm: formatarTexto(item.instituicao)
 }));
@@ -53,7 +52,7 @@ export default function TecnologiasPage() {
     const nome = item.nome || '';
     const bateTexto = nome.toLowerCase().includes(buscaTexto.toLowerCase());
     
-    // a filtragem agora avalia exclusivamente texto e tipo
+    // a filtragem de texto e tipo
     const bateTipo = tiposSelecionados.length === 0 || tiposSelecionados.includes(item.tipoTecnologia);
     
     return bateTexto && bateTipo;
@@ -62,7 +61,6 @@ export default function TecnologiasPage() {
   return (
     <div className="w-full flex flex-col min-h-screen bg-gray-50">
       
-      {/* header roxo */}
       <section className="bg-purple-900 text-white pt-24 pb-12 px-6 flex flex-col items-center text-center">
         <h1 className="text-3xl md:text-4xl font-bold mb-4">Tecnologias</h1>
         <p className="text-purple-200 mb-8 max-w-3xl">
@@ -85,13 +83,13 @@ export default function TecnologiasPage() {
 
       <section className="w-full max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row gap-8">
         
-        {/* sidebar de filtros limpa */}
+        {/* sidebar de filtros */}
         <aside className="w-full md:w-1/3 lg:w-1/4">
           <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
             <div className="flex justify-between items-center mb-6">
               <h2 className="font-bold text-lg text-purple-900">Filtro</h2>
               <button 
-                // função de limpar filtros atualizada para ignorar a instituição
+                // função de limpar filtros
                 onClick={() => { setTiposSelecionados([]); setBuscaTexto(''); }}
                 className="text-sm text-gray-500 hover:text-orange-500 transition-colors"
               >
@@ -125,7 +123,7 @@ export default function TecnologiasPage() {
             {tecnologiasFiltradas.length} resultados encontrados
           </div>
 
-          {/* container com scroll vertical e altura máxima adaptável à tela */}
+          {/* container com rolagem */}
           <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2 pb-4">
             {tecnologiasFiltradas.map(item => (
               <Card key={item.id} className="hover:shadow-md transition-shadow">
@@ -145,7 +143,6 @@ export default function TecnologiasPage() {
                         </span>
                       )}
                       
-                      {/* mantivemos a exibição da instituição no cartão, apenas removemos o filtro lateral */}
                       <span className="items-center gap-1">
                         <span className="font-semibold text-gray-700">Instituição:</span> {item.instituicaoNorm}
                       </span>
