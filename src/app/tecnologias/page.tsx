@@ -124,7 +124,7 @@ export default function TecnologiasPage() {
           </div>
 
           {/* container com rolagem */}
-          <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2 pb-4">
+          <div className="space-y-4 max-h-[90vh] overflow-y-auto pr-2 pb-4">
             {tecnologiasFiltradas.map(item => (
               <Card key={item.id} className="hover:shadow-md transition-shadow">
                 <CardContent className="p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
