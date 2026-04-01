@@ -10,7 +10,7 @@ export function HeroSearch() {
   const router = useRouter();
 
   // segura o reload da pagina e faz o redirecionamento via next
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (query.trim()) {
       router.push(`/busca?q=${encodeURIComponent(query)}`);

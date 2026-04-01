@@ -17,8 +17,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="scroll-smooth">
-
+    // adiciona data-scroll-behavior para compatibilidade com o roteamento interno do next.js
+    <html lang="pt-BR" className="scroll-smooth" data-scroll-behavior="smooth">
       <body className={`${inter.className} bg-gray-100 pt-16 flex flex-col min-h-screen`}>
         <Header />
         
