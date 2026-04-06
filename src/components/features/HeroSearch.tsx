@@ -47,9 +47,8 @@ export function HeroSearch() {
             🔍
           </button>
         </form>
-        <h2 className="mt-4 text-sm font-semibold max-w-2xl">
-          Coloque aqui a palavra-chave que você deseja pesquisar sobre as
-          tecnologias ou laboratórios da UECE.
+        <h2 className="mt-4 text-sm font-semibold max-w-3xl">
+          Coloque aqui a palavra-chave que você deseja pesquisar sobre as tecnologias ou laboratórios da UECE.
         </h2>
       </div>
     </section>
