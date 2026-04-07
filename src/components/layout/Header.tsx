@@ -21,7 +21,7 @@ export function Header() {
           <Link href="/" onClick={closeMenu}>
             {/* seção esquerda */}
             <Image 
-              src="/imagens/Marca_aginhorizontal_branca.png" 
+              src="/imagens/Marca_horizontal.png" 
               alt="Logo AGIN" 
               width={120} 
               height={48} 
