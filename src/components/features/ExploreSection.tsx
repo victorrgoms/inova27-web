@@ -9,7 +9,7 @@ export function ExploreSection() {
       <section className="relative w-full py-24 md:py-32 flex flex-col justify-center items-center text-white overflow-hidden">
         
         <Image 
-          src="/imagens/imagem-agin2.png" 
+          src="/imagens/purple.jpg" 
           alt="Pesquisa na UECE" 
           fill
           className="object-cover z-0"

@@ -21,17 +21,31 @@ export function HeroSearch() {
     <section className="relative h-[85vh] w-full overflow-hidden">
       {/* imagem de fundo */}
       <Image
-        src="/imagens/imagem-agin1.png"
+        src="/imagens/purple.jpg"
         alt="Laboratório da UECE"
         fill
         className="object-cover z-0"
         priority
       />
 
+      
+
       <div className="absolute inset-0 bg-black/40 z-10" />
 
       {/* conteudo que fica por cima */}
       <div className="relative z-20 flex flex-col items-center justify-center h-full text-white px-4 text-center">
+
+        <Image
+          src="/imagens/Marca_horizontal.png"
+          alt="Marca da UECE"
+          width={400}
+          height={100}
+          className="mb-6"
+        />
+
+        <h1 className="text-3xl font-bold mb-3">Explore <span className="text-orange-300">Laboratórios</span> e <span className="text-orange-300">Tecnologias</span> da UECE </h1>
+        <p className="mb-8">Encontre soluções, pesquisas e inovações em um só lugar.</p>
+
         <form onSubmit={handleSearch} className="flex w-full max-w-xl">
           <input
             type="text"
@@ -42,14 +56,14 @@ export function HeroSearch() {
           />
           <button
             type="submit"
-            className="bg-orange-500 px-4 py-2 rounded-r-full hover:bg-orange-600 transition-colors cursor-pointer"
+            className="bg-orange-500 px-4 py-2 rounded-r-full hover:bg-orange-700 transition-colors cursor-pointer"
           >
-            🔍
+            Buscar
           </button>
         </form>
-        <h2 className="mt-4 text-sm font-semibold max-w-3xl">
+        <p className="mt-4 text-sm font-medium max-w-3xl">
           Coloque aqui a palavra-chave que você deseja pesquisar sobre as tecnologias ou laboratórios da UECE.
-        </h2>
+        </p>
       </div>
     </section>
   );
