@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import '../globals.css';
 import Link from 'next/link';
 import { LayoutDashboard, FlaskConical, Cpu, LogOut } from 'lucide-react';
+import Image from 'next/image';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,8 +22,17 @@ export default function AdminRootLayout({
         
         {/* barra lateral do painel admin */}
         <aside className="w-64 bg-purple-950 text-white flex flex-col shadow-xl">
-          <div className="p-6 mb-4">
-            <h2 className="text-2xl font-bold text-green-300">Inova27º <span className="text-white">Admin</span></h2>
+          <div className="p-6 mb-4 flex flex-col items-center">
+            <Image 
+              src="/imagens/Marca_horizontal.png" 
+              alt="Logo AGIN" 
+              width={120} 
+              height={48} 
+              className="h-12 w-auto" 
+              style={{ width: 'auto', height: 'auto' }}
+              priority
+            />
+            <h2 className="text-2xl font-bold text-orange-400">Inova27º <span className="text-white">Admin</span></h2>
           </div>
           
           <nav className="flex-1 px-4 space-y-2">
