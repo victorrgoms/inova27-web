@@ -127,7 +127,7 @@ export default function NovaTecnologia() {
 
         <div className="flex justify-end gap-4 pt-4 border-t border-slate-100">
           <Link href="/admin/tecnologias">
-            <Button type="button" variant="ghost">Cancelar</Button>
+            <Button className="bg-red-500 text-white hover:bg-red-800 hover:text-white" type="button" variant="ghost">Cancelar</Button>
           </Link>
           <Button 
             type="submit" 

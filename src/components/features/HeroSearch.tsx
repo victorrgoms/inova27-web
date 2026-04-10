@@ -26,6 +26,7 @@ export function HeroSearch() {
         fill
         className="object-cover z-0"
         priority
+        loading="eager"
       />
 
       
@@ -41,6 +42,7 @@ export function HeroSearch() {
           width={400}
           height={100}
           className="mb-6"
+          loading="eager"
         />
 
         <h1 className="text-3xl font-bold mb-3">Explore <span className="text-orange-300">Laboratórios</span> e <span className="text-orange-300">Tecnologias</span> da UECE </h1>

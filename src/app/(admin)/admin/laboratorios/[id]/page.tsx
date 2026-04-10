@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,18 +9,51 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, Save } from 'lucide-react';
 
-export default function NovoLaboratorio() {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+import agrarias from '@/data/laboratorios/laboratorios-ciencias-agrarias.json';
+import biologicas from '@/data/laboratorios/laboratorios-ciencias-biologicas.json';
+import saude from '@/data/laboratorios/laboratorios-ciencias-da-saude.json';
+import exatas from '@/data/laboratorios/laboratorios-ciencias-exatas-e-da-terra.json';
+import humanas from '@/data/laboratorios/laboratorios-ciencias-humanas.json';
+import sociais from '@/data/laboratorios/laboratorios-ciencias-sociais-aplicadas.json';
 
-  // intercepta o envio do formulário para tratar os dados antes de mandar para a api
+const laboratoriosDB = [
+  ...agrarias.map(lab => ({ ...lab, areaNorm: "Ciências Agrárias" })),
+  ...biologicas.map(lab => ({ ...lab, areaNorm: "Ciências Biológicas" })),
+  ...saude.map(lab => ({ ...lab, areaNorm: "Ciências da Saúde" })),
+  ...exatas.map(lab => ({ ...lab, areaNorm: "Ciências Exatas e da Terra" })),
+  ...humanas.map(lab => ({ ...lab, areaNorm: "Ciências Humanas" })),
+  ...sociais.map(lab => ({ ...lab, areaNorm: "Ciências Sociais Aplicadas" }))
+].map((lab, index) => ({
+  ...lab,
+  id: lab.id ? `${lab.id}-${index}` : `lab-gerado-${index}`
+}));
+
+export default function EditarLaboratorio() {
+  const router = useRouter();
+  const params = useParams(); // captura o ID da URL
+  const [isLoading, setIsLoading] = useState(false);
+  const [laboratorio, setLaboratorio] = useState<any>(null);
+
+  useEffect(() => {
+    // procura o laboratório na base em q o ID seja igual ao da URL
+    const labEncontrado = laboratoriosDB.find(l => l.id === params.id);
+    if (labEncontrado) {
+      setLaboratorio(labEncontrado);
+    }
+  }, [params.id]);
+
+  // loading se o laboratório não for encontrado 
+  if (!laboratorio) {
+    return <div className="p-8 text-center text-slate-500">Carregando dados do laboratório...</div>;
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    
-    const dadosLaboratorio = {
+    const dadosAtualizados = {
+      id: laboratorio.id,
       nome: formData.get('nome'),
       area: formData.get('area'),
       natureza: formData.get('natureza'),
@@ -28,11 +61,10 @@ export default function NovoLaboratorio() {
       descricao: formData.get('descricao'),
     };
 
-    console.log('dados que serão enviados para a api:', dadosLaboratorio);
+    console.log('dados atualizados (PUT/PATCH para a api):', dadosAtualizados);
 
     setTimeout(() => {
       setIsLoading(false);
-      // redireciona o user de volta para a tabela após salvar
       router.push('/admin/laboratorios');
     }, 1000);
   };
@@ -47,21 +79,20 @@ export default function NovoLaboratorio() {
           </Button>
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Novo Laboratório</h1>
-          <p className="text-sm text-slate-500">Preencha os dados para cadastrar um novo espaço de pesquisa.</p>
+          <h1 className="text-2xl font-bold text-slate-900">Editar Laboratório</h1>
+          <p className="text-sm text-slate-500">Atualize as informações do laboratório selecionado.</p>
         </div>
       </div>
 
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-sm border border-slate-200 space-y-8">
         
-        {/* divide os campos menores em duas colunas em telas médias e grandes */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2 md:col-span-2">
             <Label htmlFor="nome">Nome do Laboratório</Label>
             <Input 
               id="nome" 
               name="nome" 
-              placeholder="Ex: LARCES" 
+              defaultValue={laboratorio.nome}
               required 
             />
           </div>
@@ -71,7 +102,7 @@ export default function NovoLaboratorio() {
             <Input 
               id="area" 
               name="area" 
-              placeholder="Ex: Ciências Exatas e da Terra" 
+              defaultValue={laboratorio.areaNorm}
               required 
             />
           </div>
@@ -81,7 +112,7 @@ export default function NovoLaboratorio() {
             <Input 
               id="natureza" 
               name="natureza" 
-              placeholder="Ex: Pesquisa e Ensino" 
+              defaultValue={laboratorio.natureza}
               required 
             />
           </div>
@@ -91,7 +122,7 @@ export default function NovoLaboratorio() {
             <Input 
               id="vinculado" 
               name="vinculado" 
-              placeholder="Ex: Centro de Ciência e Tecnologia (CCT)" 
+              defaultValue={laboratorio.vinculado}
               required 
             />
           </div>
@@ -101,7 +132,7 @@ export default function NovoLaboratorio() {
             <Textarea 
               id="descricao" 
               name="descricao" 
-              placeholder="Descreva as principais atividades e objetivos do laboratório..." 
+              defaultValue={laboratorio.descricao}
               className="min-h-[120px]"
               required
             />
@@ -117,10 +148,10 @@ export default function NovoLaboratorio() {
             className="bg-purple-700 hover:bg-purple-800 text-white"
             disabled={isLoading}
           >
-            {isLoading ? 'Salvando...' : (
+            {isLoading ? 'Atualizando...' : (
               <>
                 <Save size={16} className="mr-2" />
-                Salvar Laboratório
+                Atualizar Registro
               </>
             )}
           </Button>
