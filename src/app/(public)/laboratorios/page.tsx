@@ -82,8 +82,8 @@ export default function LaboratoriosPage() {
             placeholder="Pesquise por nome do laboratório..." 
             className="w-full px-6 py-3 rounded-l-md text-black focus:outline-none" 
           />
-          <button className="bg-orange-500 px-6 py-3 rounded-r-md hover:bg-orange-600 transition-colors">
-            🔍
+          <button className="bg-orange-600 px-6 py-3 rounded-r-md hover:bg-orange-600 transition-colors">
+            Buscar
           </button>
         </div>
       </section>

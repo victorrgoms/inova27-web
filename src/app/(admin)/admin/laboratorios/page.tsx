@@ -5,18 +5,30 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash2, Plus } from 'lucide-react';
+import Link from 'next/link';
 
-// importa e junta os jsons de laboratórios para alimentar a tabela temporariamente
+// importa os componentes do modal
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 import agrarias from '@/data/laboratorios/laboratorios-ciencias-agrarias.json';
 import biologicas from '@/data/laboratorios/laboratorios-ciencias-biologicas.json';
 import saude from '@/data/laboratorios/laboratorios-ciencias-da-saude.json';
 import exatas from '@/data/laboratorios/laboratorios-ciencias-exatas-e-da-terra.json';
 import humanas from '@/data/laboratorios/laboratorios-ciencias-humanas.json';
 import sociais from '@/data/laboratorios/laboratorios-ciencias-sociais-aplicadas.json';
-import Link from 'next/link';
 
-// aplica a mesma normalização da área pública para evitar dados inconsistentes
-const laboratoriosData = [
+// renomeado para refletir que é o valor inicial do estado
+const laboratoriosDataIniciais = [
   ...agrarias.map(lab => ({ ...lab, areaNorm: "Ciências Agrárias" })),
   ...biologicas.map(lab => ({ ...lab, areaNorm: "Ciências Biológicas" })),
   ...saude.map(lab => ({ ...lab, areaNorm: "Ciências da Saúde" })),
@@ -30,11 +42,20 @@ const laboratoriosData = [
 
 export default function AdminLaboratorios() {
   const [busca, setBusca] = useState('');
+  
+  // controla a lista de laboratórios na tela
+  const [laboratorios, setLaboratorios] = useState(laboratoriosDataIniciais);
 
-  // mantem apenas o filtro de texto para facilitar a busca rápida no admin
-  const filtrados = laboratoriosData.filter(lab =>
+  // filtra com base no estado atual
+  const filtrados = laboratorios.filter(lab =>
     (lab.nome || '').toLowerCase().includes(busca.toLowerCase())
   );
+
+  // remove o laboratório da lista visualmente
+  const handleDelete = (idParaDeletar: string) => {
+    // futura integração com api: await fetch(`/api/laboratorios/${idParaDeletar}`, { method: 'DELETE' })
+    setLaboratorios(prev => prev.filter(lab => lab.id !== idParaDeletar));
+  };
 
   return (
     <div className="space-y-6">
@@ -79,16 +100,36 @@ export default function AdminLaboratorios() {
                   <TableCell className="text-slate-600">{lab.natureza}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      {/* passando o id dinâmico do laboratório na URL */}
+                      
                       <Link href={`/admin/laboratorios/${lab.id}`}>
                         <Button variant="outline" size="sm" className="text-white bg-blue-500 hover:bg-blue-700 hover:text-white border-slate-200">
-                          <Pencil size={16} />
+                          Editar <Pencil size={16} />
                         </Button>
                       </Link>
-                      
-                      <Button variant="outline" size="sm" className="text-white bg-red-500 hover:bg-red-700 hover:text-white border-slate-200">
-                        <Trash2 size={16} />
-                      </Button>
+
+                      {/* modal de exclusão */}
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="outline" size="sm" className="text-white bg-red-500 hover:bg-red-700 hover:text-white border-slate-200">
+                            Excluir <Trash2 size={16} />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Tem certeza absoluta?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Esta ação não pode ser desfeita. Isso removerá permanentemente o <strong>{lab.nome}</strong> dos nossos servidores.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => handleDelete(lab.id)} className="bg-red-600 hover:bg-red-700 text-white">
+                              Sim, excluir
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+
                     </div>
                   </TableCell>
                 </TableRow>

@@ -24,7 +24,7 @@ export function HeroSearch() {
         src="/imagens/purple.jpg"
         alt="Laboratório da UECE"
         fill
-        className="object-cover z-0"
+        className="object-cover z-0 brightness-80"
         priority
         loading="eager"
       />
@@ -37,16 +37,18 @@ export function HeroSearch() {
       <div className="relative z-20 flex flex-col items-center justify-center h-full text-white px-4 text-center">
 
         <Image
-          src="/imagens/Marca_horizontal.png"
+          src="/imagens/Marca_aginhorizontal_fundoazul.png"
           alt="Marca da UECE"
-          width={400}
-          height={100}
-          className="mb-6"
+          width={500}
+          height={200}
+          className="-mb-10"
           loading="eager"
         />
 
-        <h1 className="text-3xl font-bold mb-3">Explore <span className="text-orange-300">Laboratórios</span> e <span className="text-orange-300">Tecnologias</span> da UECE </h1>
-        <p className="mb-8">Encontre soluções, pesquisas e inovações em um só lugar.</p>
+        <h1 className="text-lg font-medium mb-6 w-2/3">
+        Explore as mais diversas informações sobre inovação 
+        e empreendedorismo na Universidade Estadual do Ceará
+        </h1>
 
         <form onSubmit={handleSearch} className="flex w-full max-w-xl">
           <input
@@ -64,7 +66,7 @@ export function HeroSearch() {
           </button>
         </form>
         <p className="mt-4 text-sm font-medium max-w-3xl">
-          Coloque aqui a palavra-chave que você deseja pesquisar sobre as tecnologias ou laboratórios da UECE.
+          Você pode navegar usando as abas específicas ou fazer uma busca geral utilizando palavras-chave.
         </p>
       </div>
     </section>

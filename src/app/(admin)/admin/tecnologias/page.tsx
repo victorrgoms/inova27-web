@@ -6,21 +6,33 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash2, Plus } from 'lucide-react';
 
-// importa os jsons da pasta de tecnologias
+// 1. Novas importações do modal de confirmação
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 import desenhos from '@/data/tecnologias/desenhos-industriais.json';
 import invencao from '@/data/tecnologias/patentes-invencao.json';
 import utilidade from '@/data/tecnologias/patentes-utilidade.json';
 import programas from '@/data/tecnologias/programas-computadores.json';
 import Link from 'next/link';
 
-// mesma função de limpeza usada na área pública
 const formatarTexto = (texto?: string) => {
   if (!texto || texto === "-") return "Não informada";
   const limpo = String(texto).trim().replace(/\.$/, '');
   return limpo.charAt(0).toUpperCase() + limpo.slice(1);
 };
 
-const tecnologiasData = [
+// Renomeamos para tecnologiasDataIniciais, pois agora será o valor inicial do nosso estado
+const tecnologiasDataIniciais = [
   ...desenhos.map(item => ({ ...item, tipoTecnologia: "Desenho Industrial" })),
   ...invencao.map(item => ({ ...item, tipoTecnologia: "Patente de Invenção" })),
   ...utilidade.map(item => ({ ...item, tipoTecnologia: "Patente de Modelo de Utilidade" })),
@@ -33,11 +45,20 @@ const tecnologiasData = [
 
 export default function AdminTecnologias() {
   const [busca, setBusca] = useState('');
+  
+  // 2. Colocamos a lista dentro de um estado para podermos modificá-la na tela
+  const [tecnologias, setTecnologias] = useState(tecnologiasDataIniciais);
 
-  // filtra os resultados com base no texto digitado no input de busca
-  const filtrados = tecnologiasData.filter(item =>
+  // Filtramos a partir do estado, e não mais da constante fixa
+  const filtrados = tecnologias.filter(item =>
     (item.nome || '').toLowerCase().includes(busca.toLowerCase())
   );
+
+  // 3. Função que exclui o item da visualização
+  const handleDelete = (idParaDeletar: string) => {
+    // Na vida real, aqui também iria a chamada para sua API: await fetch(`/api/tecnologias/${idParaDeletar}`, { method: 'DELETE' })
+    setTecnologias(prev => prev.filter(item => item.id !== idParaDeletar));
+  };
 
   return (
     <div className="space-y-6">
@@ -84,12 +105,35 @@ export default function AdminTecnologias() {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button variant="outline" size="sm" className="text-white bg-blue-500 hover:bg-blue-700 hover:text-white border-slate-200">
-                        <Pencil size={16} />
-                      </Button>
-                      <Button variant="outline" size="sm" className="text-white bg-red-500 hover:bg-red-700 hover:text-white border-slate-200">
-                        <Trash2 size={16} />
-                      </Button>
+                      <Link href={`/admin/tecnologias/${item.id}`}>
+                        <Button variant="outline" size="sm" className="text-white bg-blue-500 hover:bg-blue-700 hover:text-white border-slate-200">
+                          Editar <Pencil size={16} />
+                        </Button>
+                      </Link>
+                      
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="outline" size="sm" className="text-white bg-red-500 hover:bg-red-700 hover:text-white border-slate-200">
+                            Excluir <Trash2 size={16} />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Tem certeza absoluta?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Esta ação não pode ser desfeita. Isso removerá permanentemente <strong>{item.nome}</strong> dos nossos servidores.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                            {/* O onClick dispara a função que atualiza a tabela */}
+                            <AlertDialogAction onClick={() => handleDelete(item.id)} className="bg-red-600 hover:bg-red-700 text-white">
+                              Sim, excluir
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+
                     </div>
                   </TableCell>
                 </TableRow>

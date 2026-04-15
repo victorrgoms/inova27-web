@@ -26,7 +26,7 @@ export default function AdminDashboard() {
         <Card className="shadow-sm border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-slate-600">Tecnologias Cadastradas</CardTitle>
-            <Cpu className="w-4 h-4 text-orange-500" />
+            <Cpu className="w-4 h-4 text-purple-600" />
           </CardHeader>
           <CardContent>
             {/* numero fixo por enquanto */}

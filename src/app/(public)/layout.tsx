@@ -7,7 +7,7 @@ import { Footer } from '@/components/layout/Footer';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Agência de Inovação da UECE - Inova 27',
+  title: 'Inova 27º - Agência de Inovação da UECE',
   description: 'Portal de tecnologias e laboratórios da Universidade Estadual do Ceará.',
 };
 
