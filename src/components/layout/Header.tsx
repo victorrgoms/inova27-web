@@ -32,16 +32,14 @@ export function Header() {
           </Link>
         </div>
 
+
         {/* seção direita */}
         <nav className="hidden md:flex space-x-8 text-white font-medium text-sm">
-          <Link href="/#sobre" className="hover:text-orange-400 transition-colors duration-300">
-            Sobre
+          <Link href="/#login" className="hover:text-gray-300">
+            Entre
           </Link>
-          <Link href="/laboratorios" className="hover:text-orange-400 transition-colors duration-300">
-            Laboratórios
-          </Link>
-          <Link href="/tecnologias" className="hover:text-orange-400 transition-colors duration-300">
-            Tecnologias
+          <Link href="/#cadastro" className="hover:text-gray-300">
+            Cadastre-se
           </Link>
         </nav>
 

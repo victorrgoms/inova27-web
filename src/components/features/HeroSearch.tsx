@@ -68,6 +68,7 @@ export function HeroSearch() {
         <p className="mt-4 text-sm font-medium max-w-3xl">
           Você pode navegar usando as abas específicas ou fazer uma busca geral utilizando palavras-chave.
         </p>
+        
       </div>
     </section>
   );
