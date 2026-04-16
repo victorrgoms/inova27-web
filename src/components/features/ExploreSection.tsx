@@ -29,7 +29,7 @@ export function ExploreSection() {
             
             {/* cartão de tecnologias */}
             <Link href="/tecnologias" className="group">
-              <div className="h-full p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg transition-all duration-300 group-hover:-translate-y-2 group-hover:bg-white/20 group-hover:shadow-2xl flex flex-col justify-center items-center text-center cursor-pointer">
+              <div className="h-full p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg transition-all duration-300 group-hover:bg-white/20 group-hover:shadow-2xl flex flex-col justify-center items-center text-center cursor-pointer">
                 <h3 className="text-2xl font-bold text-purple-100 mb-4">
                   Tecnologias
                 </h3>
@@ -39,15 +39,46 @@ export function ExploreSection() {
               </div>
             </Link>
 
+            {/* cartão de jogos */}
+            <Link href="/#jogos" className="group">
+              <div className="h-full p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg transition-all duration-300 group-hover:bg-white/20 group-hover:shadow-2xl flex flex-col justify-center items-center text-center cursor-pointer">
+                <h3 className="text-2xl font-bold text-purple-100 mb-4">
+                  Jogos
+                </h3>
+                <p className="text-gray-200 leading-relaxed">
+                  De jogos de tabuleiro e cartas à jogos digitais em que autores da UECE estão envolvidos, seja como criadores, colaboradores ou inspiradores.
+                </p>
+              </div>
+            </Link>
+
             {/* cartão de laboratórios */}
-            <Link href="/laboratorios" className="group">
-              <div className="h-full p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg transition-all duration-300 group-hover:-translate-y-2 group-hover:bg-white/20 group-hover:shadow-2xl flex flex-col justify-center items-center text-center cursor-pointer">
+            <Link href="/formlaboratorio" className="group">
+              <div className="h-full p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg transition-all duration-300 group-hover:bg-white/20 group-hover:shadow-2xl flex flex-col justify-center items-center text-center cursor-pointer">
                 <h3 className="text-2xl font-bold text-purple-100 mb-4">
                   Laboratórios
                 </h3>
                 <p className="text-gray-200 leading-relaxed">
                   Espaços de pesquisa e inovação que fortalecem o desenvolvimento científico e social.
                 </p>
+                <button className="mt-4 inline-block bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2 px-6 rounded-full shadow-md transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-300">
+                  Cadastre seu laboratório
+                </button>
+              </div>
+            </Link>
+
+            {/* cartão de dnauece */}
+            <Link href="/formdnauece" className="group">
+              <div className="h-full p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg transition-all duration-300 group-hover:bg-white/20 group-hover:shadow-2xl flex flex-col justify-center items-center text-center cursor-pointer">
+                <h3 className="text-2xl font-bold text-purple-100 mb-4">
+                  DNA UECE
+                </h3>
+                <p className="text-gray-200 leading-relaxed">
+                  Empresas que possuem em seu quadro de sócios um ou mais membros da comunidade acadêmica da UECE.
+                </p>
+
+                <button className="mt-4 inline-block bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2 px-6 rounded-full shadow-md transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-300">
+                  Cadastre sua empresa
+                </button>
               </div>
             </Link>
 

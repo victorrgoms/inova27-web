@@ -35,10 +35,10 @@ export function Header() {
 
         {/* seção direita */}
         <nav className="hidden md:flex space-x-8 text-white font-medium text-sm">
-          <Link href="/#login" className="hover:text-gray-300">
+          <Link href="/login" className="hover:text-gray-300">
             Entre
           </Link>
-          <Link href="/#cadastro" className="hover:text-gray-300">
+          <Link href="/cadastro" className="hover:text-gray-300">
             Cadastre-se
           </Link>
         </nav>
